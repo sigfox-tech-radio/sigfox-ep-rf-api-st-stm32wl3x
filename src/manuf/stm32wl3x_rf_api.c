@@ -56,8 +56,6 @@
 #define STM32WL3X_RF_API_FREQUENCY_MIN_HZ                   826000000
 #define STM32WL3X_RF_API_FREQUENCY_MAX_HZ                   958000000
 
-#define STM32WL3X_RF_API_NUMBER_OF_PA_DRIVE_MODE            3
-
 #define STM32WL3X_RF_API_SYMBOL_PROFILE_SIZE_BYTES          40
 
 #define STM32WL3X_RF_API_POLAR_DATARATE_MULTIPLIER          8
@@ -149,10 +147,10 @@ typedef struct {
 /*** STM32WL3X RF API local global variables ***/
 
 #ifdef SIGFOX_EP_VERBOSE
-static const sfx_u8 STM32WL3X_RF_API_VERSION[] = "v1.0";
+static const sfx_u8 STM32WL3X_RF_API_VERSION[] = "v2.0";
 #endif
 // Maximum output power depending on PA drive mode.
-static const sfx_s8 STM32WL3X_RF_API_TX_POWER_MAX_DBM[STM32WL3X_RF_API_NUMBER_OF_PA_DRIVE_MODE] = { 10, 14, 20 };
+static const sfx_s8 STM32WL3X_RF_API_TX_POWER_MAX_DBM[STM32WL3X_HW_API_PA_DRIVE_MODE_LAST] = { 10, 14, 20 };
 // Amplitude profile tables for ramp and bit 0 transmission at maximum output power.
 static const sfx_u8 STM32WL3X_RF_API_RAMP_AMPLITUDE_PROFILE[STM32WL3X_RF_API_SYMBOL_PROFILE_SIZE_BYTES] = { 81, 81, 81, 81, 80, 80, 80, 79, 79, 79, 77, 77, 77, 76, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 65, 63, 61, 59, 56, 53, 50, 46, 42, 38, 34, 28, 22, 15, 0 };
 static const sfx_u8 STM32WL3X_RF_API_BIT0_AMPLITUDE_PROFILE[STM32WL3X_RF_API_SYMBOL_PROFILE_SIZE_BYTES] = { 81, 81, 81, 80, 80, 79, 79, 78, 76, 74, 71, 68, 63, 59, 55, 51, 45, 34, 22, 0, 0, 22, 34, 45, 51, 55, 59, 63, 68, 71, 74, 76, 78, 79, 79, 80, 80, 81, 81, 81 };
@@ -608,8 +606,8 @@ RF_API_status_t STM32WL3X_RF_API_init(RF_API_radio_parameters_t *radio_parameter
 #endif
     STM32WL3X_radio_parameters_t STM32WL3X_hw_radio_parameters;
     SMRSubGConfig radio_config;
-    MRSubG_PA_DRVMode pa_drive_mode = PA_DRV_TX;
-    sfx_u8 pa_drive_mode_index = 0;
+    STM32WL3X_HW_API_pa_drive_mode_t pa_drive_mode = STM32WL3X_HW_API_PA_DRIVE_MODE_LAST;
+    MRSubG_PA_DRVMode mrsubg_pa_drive_mode = 0;
     sfx_s8 expected_tx_power_dbm = 0;
     sfx_s8 tx_power_dbm = 0;
 #ifdef SIGFOX_EP_BIDIRECTIONAL
@@ -696,22 +694,30 @@ RF_API_status_t STM32WL3X_RF_API_init(RF_API_radio_parameters_t *radio_parameter
         STM32WL3X_HW_API_get_tx_power(expected_tx_power_dbm, &tx_power_dbm, &pa_drive_mode);
 #endif
         // Check returned value.
-        if ((pa_drive_mode == 0) || (pa_drive_mode > STM32WL3X_RF_API_NUMBER_OF_PA_DRIVE_MODE)) {
+        switch (pa_drive_mode) {
+        case STM32WL3X_HW_API_PA_DRIVE_MODE_TX:
+            mrsubg_pa_drive_mode = PA_DRV_TX;
+            break;
+        case STM32WL3X_HW_API_PA_DRIVE_MODE_TX_HP:
+            mrsubg_pa_drive_mode = PA_DRV_TX_HP;
+            break;
+        case STM32WL3X_HW_API_PA_DRIVE_MODE_TX_TX_HP:
+            mrsubg_pa_drive_mode = PA_DRV_TX_TX_HP;
+            break;
+        default:
             SIGFOX_EXIT_ERROR((RF_API_status_t) STM32WL3X_RF_API_ERROR_PA_DRIVE_MODE);
         }
-        // Convert to index.
-        pa_drive_mode_index = (pa_drive_mode - 1);
         // Check power.
-        if (tx_power_dbm > STM32WL3X_RF_API_TX_POWER_MAX_DBM[pa_drive_mode_index]) {
+        if (tx_power_dbm > STM32WL3X_RF_API_TX_POWER_MAX_DBM[pa_drive_mode]) {
             SIGFOX_EXIT_ERROR((RF_API_status_t) STM32WL3X_RF_API_ERROR_TX_POWER);
         }
         // Set output power.
         if ((radio_parameters->modulation) == RF_API_MODULATION_NONE) {
-            HAL_MRSubG_SetPALeveldBm(0, tx_power_dbm, pa_drive_mode);
+            HAL_MRSubG_SetPALeveldBm(0, tx_power_dbm, mrsubg_pa_drive_mode);
         }
         else {
-            LL_MRSubG_SetPADriveMode(pa_drive_mode);
-            _STM32WL3X_rf_api_compute_amplitude_tables(tx_power_dbm, pa_drive_mode_index);
+            LL_MRSubG_SetPADriveMode(mrsubg_pa_drive_mode);
+            _STM32WL3X_rf_api_compute_amplitude_tables(tx_power_dbm, pa_drive_mode);
         }
 #if (defined SIGFOX_EP_TIMER_REQUIRED) && (defined SIGFOX_EP_LATENCY_COMPENSATION)
         // Start latency = 1 symbol of ramp-up.

@@ -48,7 +48,7 @@
 STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_open(STM32WL3X_HW_API_config_t *hw_api_config) {
     /* To be implemented by the device manufacturer */
 #ifdef SIGFOX_EP_ERROR_CODES
-    STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_SUCCESS;
+    STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_ERROR;
 #endif
     SIGFOX_UNUSED(hw_api_config);
     SIGFOX_RETURN();
@@ -58,16 +58,16 @@ STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_open(STM32WL3X_
 STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_close(void) {
     /* To be implemented by the device manufacturer */
 #ifdef SIGFOX_EP_ERROR_CODES
-   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_SUCCESS;
+   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_ERROR;
 #endif
    SIGFOX_RETURN();
 }
 
 /*******************************************************************/
-STM32WL3X_HW_API_status_t __attribute__((weak))STM32WL3X_HW_API_init(STM32WL3X_radio_parameters_t *radio_parameters) {
+STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_init(STM32WL3X_radio_parameters_t *radio_parameters) {
     /* To be implemented by the device manufacturer */
 #ifdef SIGFOX_EP_ERROR_CODES
-   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_SUCCESS;
+   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_ERROR;
 #endif
    SIGFOX_UNUSED(radio_parameters);
    SIGFOX_RETURN();
@@ -77,16 +77,16 @@ STM32WL3X_HW_API_status_t __attribute__((weak))STM32WL3X_HW_API_init(STM32WL3X_r
 STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_de_init(void) {
     /* To be implemented by the device manufacturer */
 #ifdef SIGFOX_EP_ERROR_CODES
-   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_SUCCESS;
+   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_ERROR;
 #endif
    SIGFOX_RETURN();
 }
 
 /*******************************************************************/
-STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_get_tx_power(sfx_s8 expected_tx_power_dbm, sfx_s8 *tx_power_dbm, MRSubG_PA_DRVMode *pa_drive_mode) {
+STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_get_tx_power(sfx_s8 expected_tx_power_dbm, sfx_s8 *tx_power_dbm, STM32WL3X_HW_API_pa_drive_mode_t *pa_drive_mode) {
     /* To be implemented by the device manufacturer */
 #ifdef SIGFOX_EP_ERROR_CODES
-   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_SUCCESS;
+   STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_ERROR;
 #endif
    SIGFOX_UNUSED(expected_tx_power_dbm);
    SIGFOX_UNUSED(tx_power_dbm);
@@ -99,7 +99,7 @@ STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_get_tx_power(sf
 STM32WL3X_HW_API_status_t __attribute__((weak)) STM32WL3X_HW_API_get_latency(STM32WL3X_HW_API_latency_t latency_type, sfx_u32 *latency_ms) {
     /* To be implemented by the device manufacturer */
 #ifdef SIGFOX_EP_ERROR_CODES
-  STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_SUCCESS;
+  STM32WL3X_HW_API_status_t status = STM32WL3X_HW_API_ERROR;
 #endif
   SIGFOX_UNUSED(latency_type);
   SIGFOX_UNUSED(latency_ms);

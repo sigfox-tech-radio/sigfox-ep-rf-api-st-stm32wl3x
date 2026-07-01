@@ -43,8 +43,6 @@
 #include "sigfox_types.h"
 #include "manuf/rf_api.h"
 
-#include "stm32wl3x_ll_mrsubg.h"
-
 /*** STM32WL3X HW API structures ***/
 
 #ifdef SIGFOX_EP_ERROR_CODES
@@ -70,7 +68,7 @@ typedef void STM32WL3X_HW_API_status_t;
  * \brief STM32WL3X hardware functions latency delay type.
  *******************************************************************/
 typedef enum {
-    STM32WL3X_HW_API_LATENCY_INIT_TX,
+    STM32WL3X_HW_API_LATENCY_INIT_TX = 0,
     STM32WL3X_HW_API_LATENCY_DE_INIT_TX,
 #ifdef SIGFOX_EP_BIDIRECTIONAL
     STM32WL3X_HW_API_LATENCY_INIT_RX,
@@ -79,6 +77,17 @@ typedef enum {
     STM32WL3X_HW_API_LATENCY_LAST
 } STM32WL3X_HW_API_latency_t;
 #endif
+
+/*!******************************************************************
+ * \enum STM32WL3X_HW_API_pa_drive_mode_t
+ * \brief STM32WL3X PA drive modes list.
+ *******************************************************************/
+typedef enum{
+    STM32WL3X_HW_API_PA_DRIVE_MODE_TX = 0,
+    STM32WL3X_HW_API_PA_DRIVE_MODE_TX_HP,
+    STM32WL3X_HW_API_PA_DRIVE_MODE_TX_TX_HP,
+    STM32WL3X_HW_API_PA_DRIVE_MODE_LAST
+} STM32WL3X_HW_API_pa_drive_mode_t;
 
 /*!******************************************************************
  * \struct STM32WL3X_HW_API_config_t
@@ -136,7 +145,7 @@ STM32WL3X_HW_API_status_t STM32WL3X_HW_API_init(STM32WL3X_radio_parameters_t *ra
 STM32WL3X_HW_API_status_t STM32WL3X_HW_API_de_init(void);
 
 /*!******************************************************************
- * \fn STM32WL3X_HW_API_status_t STM32WL3X_HW_API_get_tx_power(sfx_s8 expected_tx_power_dbm, sfx_s8 *tx_power_dbm, MRSubG_PA_DRVMode *pa_drive_mode)
+ * \fn STM32WL3X_HW_API_status_t STM32WL3X_HW_API_get_tx_power(sfx_s8 expected_tx_power_dbm, sfx_s8 *tx_power_dbm, STM32WL3X_HW_API_pa_drive_mode_t *pa_drive_mode)
  * \brief Returns the effective RF output power to program on the STM32WL3X to get the expected value at board level.
  * \brief This function is required when an external gain has to be compensated (typical case of an external PA). Otherwise the STM32WL3X output power equals the expected value.
  * \param[in]   expected_tx_power_dbm: Expected output power in dBm (given by applicative level).
@@ -144,7 +153,7 @@ STM32WL3X_HW_API_status_t STM32WL3X_HW_API_de_init(void);
  * \param[out]  pa_drive_mode: Pointer to the PA drive mode to use according to hardware routing.
  * \retval      Function execution status.
  *******************************************************************/
-STM32WL3X_HW_API_status_t STM32WL3X_HW_API_get_tx_power(sfx_s8 expected_tx_power_dbm, sfx_s8 *tx_power_dbm, MRSubG_PA_DRVMode *pa_drive_mode);
+STM32WL3X_HW_API_status_t STM32WL3X_HW_API_get_tx_power(sfx_s8 expected_tx_power_dbm, sfx_s8 *tx_power_dbm, STM32WL3X_HW_API_pa_drive_mode_t *pa_drive_mode);
 
 #if (defined SIGFOX_EP_TIMER_REQUIRED) && (defined SIGFOX_EP_LATENCY_COMPENSATION)
 /*!******************************************************************

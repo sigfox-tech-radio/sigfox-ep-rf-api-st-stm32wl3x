@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-ti-stm32wl3x/releases/tag/v2.0) - 01 Jul 2026
+
+### Fixed
+
+* Add custom **PA drive mode enumeration** to remove HAL driver dependency and fix precompilation target.
+* Remove **extra warnings**.
+
+### Changed
+
+* Return **error by default** in weak functions template.
+
+### Known limitations
+
+* **LBT** not implemented.
+* **Modulated CW** not supported for type approval addon.
+
 ## [v1.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-ti-stm32wl3x/releases/tag/v1.0) - 07 Feb 2025
 
 ### General
