@@ -11,6 +11,7 @@ The table below shows the versions compatibility between this radio example and 
 
 | **STM32WL3X_RF_API** | **EP_LIB** |
 |:---:|:---:|
+| [v2.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-st-stm32wl3x/releases/tag/v2.0) | >= [v4.0](https://github.com/sigfox-tech-radio/sigfox-ep-lib/releases/tag/v4.0) |
 | [v1.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-st-stm32wl3x/releases/tag/v1.0) | >= [v4.0](https://github.com/sigfox-tech-radio/sigfox-ep-lib/releases/tag/v4.0) |
 
 ## Architecture
@@ -96,36 +97,7 @@ cd build/
 cmake -DSIGFOX_EP_LIB_DIR=<sigfox-ep-lib path> \
       -DCMAKE_TOOLCHAIN_FILE="cmake/toolchain-arm-none-eabi.cmake" \
       -DTOOLCHAIN_PATH="<arm_toolchain_path>" \
-      -DSIGFOX_EP_RC1_ZONE=ON \
-      -DSIGFOX_EP_RC2_ZONE=ON \
-      -DSIGFOX_EP_RC3_LBT_ZONE=ON \
-      -DSIGFOX_EP_RC3_LDC_ZONE=ON \
-      -DSIGFOX_EP_RC4_ZONE=ON \
-      -DSIGFOX_EP_RC5_ZONE=ON \
-      -DSIGFOX_EP_RC6_ZONE=ON \
-      -DSIGFOX_EP_RC7_ZONE=ON \
-      -DSIGFOX_EP_APPLICATION_MESSAGES=ON \
-      -DSIGFOX_EP_CONTROL_KEEP_ALIVE_MESSAGE=ON \
-      -DSIGFOX_EP_BIDIRECTIONAL=ON \
-      -DSIGFOX_EP_ASYNCHRONOUS=ON \
-      -DSIGFOX_EP_LOW_LEVEL_OPEN_CLOSE=ON \
-      -DSIGFOX_EP_REGULATORY=ON \
-      -DSIGFOX_EP_LATENCY_COMPENSATION=ON \
-      -DSIGFOX_EP_SINGLE_FRAME=ON \
-      -DSIGFOX_EP_UL_BIT_RATE_BPS=OFF \
-      -DSIGFOX_EP_TX_POWER_DBM_EIRP=OFF \
-      -DSIGFOX_EP_T_IFU_MS=OFF \
-      -DSIGFOX_EP_T_CONF_MS=OFF \
-      -DSIGFOX_EP_UL_PAYLOAD_SIZE=OFF \
-      -DSIGFOX_EP_AES_HW=ON \
-      -DSIGFOX_EP_CRC_HW=OFF \
-      -DSIGFOX_EP_MESSAGE_COUNTER_ROLLOVER=OFF \
-      -DSIGFOX_EP_PARAMETERS_CHECK=ON \
-      -DSIGFOX_EP_CERTIFICATION=ON \
-      -DSIGFOX_EP_PUBLIC_KEY_CAPABLE=ON \
-      -DSIGFOX_EP_VERBOSE=ON \
-      -DSIGFOX_EP_ERROR_CODES=ON \
-      -DSIGFOX_EP_ERROR_STACK=12 ..
+      <sigfox-ep-lib flags> ..
 
 make precompil_stm32wl3x_rf_api
 ```
@@ -150,36 +122,7 @@ cd build/
 cmake -DSIGFOX_EP_LIB_DIR=<sigfox-ep-lib path> \
       -DCMAKE_TOOLCHAIN_FILE="cmake/toolchain-arm-none-eabi.cmake" \
       -DTOOLCHAIN_PATH="<arm_toolchain_path>" \
-      -DSIGFOX_EP_RC1_ZONE=ON \
-      -DSIGFOX_EP_RC2_ZONE=ON \
-      -DSIGFOX_EP_RC3_LBT_ZONE=ON \
-      -DSIGFOX_EP_RC3_LDC_ZONE=ON \
-      -DSIGFOX_EP_RC4_ZONE=ON \
-      -DSIGFOX_EP_RC5_ZONE=ON \
-      -DSIGFOX_EP_RC6_ZONE=ON \
-      -DSIGFOX_EP_RC7_ZONE=ON \
-      -DSIGFOX_EP_APPLICATION_MESSAGES=ON \
-      -DSIGFOX_EP_CONTROL_KEEP_ALIVE_MESSAGE=ON \
-      -DSIGFOX_EP_BIDIRECTIONAL=ON \
-      -DSIGFOX_EP_ASYNCHRONOUS=ON \
-      -DSIGFOX_EP_LOW_LEVEL_OPEN_CLOSE=ON \
-      -DSIGFOX_EP_REGULATORY=ON \
-      -DSIGFOX_EP_LATENCY_COMPENSATION=ON \
-      -DSIGFOX_EP_SINGLE_FRAME=ON \
-      -DSIGFOX_EP_UL_BIT_RATE_BPS=OFF \
-      -DSIGFOX_EP_TX_POWER_DBM_EIRP=OFF \
-      -DSIGFOX_EP_T_IFU_MS=OFF \
-      -DSIGFOX_EP_T_CONF_MS=OFF \
-      -DSIGFOX_EP_UL_PAYLOAD_SIZE=OFF \
-      -DSIGFOX_EP_AES_HW=ON \
-      -DSIGFOX_EP_CRC_HW=OFF \
-      -DSIGFOX_EP_MESSAGE_COUNTER_ROLLOVER=OFF \
-      -DSIGFOX_EP_PARAMETERS_CHECK=ON \
-      -DSIGFOX_EP_CERTIFICATION=ON \
-      -DSIGFOX_EP_PUBLIC_KEY_CAPABLE=ON \
-      -DSIGFOX_EP_VERBOSE=ON \
-      -DSIGFOX_EP_ERROR_CODES=ON \
-      -DSIGFOX_EP_ERROR_STACK=12 ..
+      <sigfox-ep-lib flags> ..
 
 make stm32wl3x_rf_api
 ```

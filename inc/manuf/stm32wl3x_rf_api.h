@@ -173,7 +173,7 @@ RF_API_status_t STM32WL3X_RF_API_receive(RF_API_rx_data_t *rx_data);
 /*!******************************************************************
  * \fn RF_API_status_t STM32WL3X_RF_API_get_dl_phy_content_and_rssi(sfx_u8 *dl_phy_content, sfx_u8 dl_phy_content_size, sfx_s16 *dl_rssi_dbm)
  * \brief Read DL-PHY content and RSSI received by the radio.
- * \brief In blocking mode, this function will be called only if the data_received parameter of the STM32WL3X_RF_API_receive() function is returned with SFX_TRUE value.
+ * \brief In blocking mode, this function will be called only if the data_received parameter of the STM32WL3X_RF_API_receive() function is returned with SIGFOX_TRUE value.
  * \brief in asynchronous mode, this function will be called only if the data_received_cb callback is triggered during reception.
  * \param[in]   dl_phy_content_size: Number of bytes to copy in dl_phy_content.
  * \param[out]  dl_phy_content: Array to be filled with the received DL-PHY content.
