@@ -7,7 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [v2.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-ti-stm32wl3x/releases/tag/v2.0) - 01 Jul 2026
+## [v2.1](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-st-stm32wl3x/releases/tag/v2.1) - 12 Nov 2026
+
+### Added
+
+* Add **version file**.
+
+### Changed
+
+* Changed from the Clear BSD License to the standard **BSD 3-Clause License**. See the `LICENSE` file for details.
+
+### Known limitations
+
+* **LBT** not implemented.
+* **Modulated CW** not supported for type approval addon.
+
+## [v2.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-st-stm32wl3x/releases/tag/v2.0) - 01 Jul 2026
 
 ### Fixed
 
@@ -23,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **LBT** not implemented.
 * **Modulated CW** not supported for type approval addon.
 
-## [v1.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-ti-stm32wl3x/releases/tag/v1.0) - 07 Feb 2025
+## [v1.0](https://github.com/sigfox-tech-radio/sigfox-ep-rf-api-st-stm32wl3x/releases/tag/v1.0) - 07 Feb 2025
 
 ### General
 
